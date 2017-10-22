@@ -1,7 +1,7 @@
 # arisco
 An unexpected Telegram/Raspberry journey
 
-# Execution:
+# Installation:
 
 `git clone https://github.com/thiagosanches/arisco.git`
 
@@ -11,5 +11,7 @@ An unexpected Telegram/Raspberry journey
 
 `node arisco.js`
 
-# How to configure?
+# How to configure ?
+
+TODO
 
