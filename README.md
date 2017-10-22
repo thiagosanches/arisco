@@ -15,8 +15,8 @@ An unexpected Telegram/Raspberry journey.
 
 There is a `config.json` file that should be configured like the following example:
 
-[code]
-`{	
+<pre><code>
+{	
 	"authorizationToken" : "YOUR BOT TOKEN GOES HERE",
 	"config" : {
 		"adminUsers" : [1, 2], /*chatId from users that you are considering as admin. You can get this information right after send a message to your bot*/
@@ -32,5 +32,5 @@ There is a `config.json` file that should be configured like the following examp
 		],
 		"deniedCommands" : ["rm", "rmdir", "shutdown", "halt", "sudo", "mv", "touch", "chmod", "wget", "curl", "echo"]
 	}
-}`
-[/code]
+}
+</code></pre>
