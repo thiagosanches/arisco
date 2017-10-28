@@ -17,14 +17,14 @@ There is a `config.json` file that should be configured like the following examp
 
 <pre><code>
 {	
-	"authorizationToken" : "YOUR BOT TOKEN GOES HERE",
+	"authorizationToken" : "YOUR_TOKEN_GOES_HERE",
 	"config" : {
-		"adminUsers" : [1, 2], /*chatId from users that you are considering as admin. You can get this information right after send a message to your bot*/
+		"adminUsers" : [1,2,3],
 		"selfies" : ["assets/arisco1.jpeg", "assets/arisco2.jpeg"],
 		"customCommands" : [
 			{ 
-				"mycommand1" : ["my inline commands goes here"],
-				"executeWithSpawn" : true /*this will run the process as an isolated shell, good for shutdown and halt commands*/
+				"command1" : ["my command 1"],
+				"executeWithSpawn" : true
 			},
 			{
 				"testing" : "echo 'not executing with spawn'"
