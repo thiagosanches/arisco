@@ -3,11 +3,10 @@ const TelegramBot = require('node-telegram-bot-api'),
 	exec = require('child_process').exec,
 	execSpawn = require('child_process').spawn;
 
-
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
 	INDEX_COMMAND = 1;
 
-const getCustomCommand = () => {
+const getCustomCommand = (command) => {
 	for (var i = 0; i < json.config.customCommands.length; i++) {
 		if (json.config.customCommands[i][command] !== undefined) {
 			return json.config.customCommands[i];
@@ -16,12 +15,11 @@ const getCustomCommand = () => {
 	return null;
 };
 
-
 const execute = (command, callback) => exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
-
 
 const executeSpawn = (command) => {
 	let args = [];
+	
 	if (command.length > 1) {
 		args = command.slice(1);
 	}
@@ -34,8 +32,7 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 	let chatId = msg.chat.id,
 		command = match[INDEX_COMMAND];
 
-
-	var customCommand = getCustomCommand();
+	var customCommand = getCustomCommand(command);
 
 	if (customCommand !== null) {
 		if (!json.config.adminUsers.includes(chatId)) {
@@ -43,15 +40,11 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 			return;
 		}
 
-		console.log('Executing custom command: ', customCommand);
-
 		if (customCommand.executeWithSpawn) {
-			console.log("executing: ", customCommand[command]);
 			return executeSpawn(customCommand[command]);
 		}
 
 		return execute(customCommand[command], (error, stdout, stderr) => arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
-
 	};
 
 	existDeniedCommands = (command) => {
@@ -68,9 +61,8 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 		return;
 	}
 
-	execute(command, (error, stdout, stderr) => arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
-
-
+	execute(command, (error, stdout, stderr) => 
+		arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
 });
 
 arisco.onText(/\/selfie/, (msg, match) => {
