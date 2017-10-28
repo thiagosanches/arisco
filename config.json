@@ -1,7 +1,7 @@
 {	
-	"authorizationToken" : "YOUR TOKEN GOES HERE",
+	"authorizationToken" : "YOUR_TOKEN_GOES_HERE",
 	"config" : {
-		"adminUsers" : [UNIQUE-CHAT-ID-1, UNIQUE-CHAT-ID-2],
+		"adminUsers" : [1,2,3],
 		"selfies" : ["assets/arisco1.jpeg", "assets/arisco2.jpeg"],
 		"customCommands" : [
 			{ 
