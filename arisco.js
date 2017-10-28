@@ -54,6 +54,12 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 			});
 		}
 	}
+
+	if (existDeniedCommands(command) &&
+		!json.config.adminUsers.includes(chatId)) {
+		arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+		return;
+	}
 	else {
 
 		existDeniedCommands = (command) => {
