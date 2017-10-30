@@ -7,8 +7,10 @@ const TelegramBot = require('node-telegram-bot-api'),
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
 	INDEX_COMMAND = 1;
 
+console.log(arisco)
+
 const getCustomCommand = () => {
-	for (var i = 0; i < json.config.customCommands.length; i++) {
+	for (let i = 0; i < json.config.customCommands.length; i++) {
 		if (json.config.customCommands[i][command] !== undefined) {
 			return json.config.customCommands[i];
 		}
@@ -28,14 +30,14 @@ const executeSpawn = (command) => {
 
 	execSpawn(command[0], args, { detached: true, shell: true })
 		.on('error', (err) => console.log(err));
-}
+};
 
 arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 	let chatId = msg.chat.id,
 		command = match[INDEX_COMMAND];
 
 
-	var customCommand = getCustomCommand();
+	var customCommand = getCustomCommand();/*?*/
 
 	if (customCommand !== null) {
 		if (!json.config.adminUsers.includes(chatId)) {
