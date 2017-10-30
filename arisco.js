@@ -62,7 +62,7 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 				return true;
 		}
 		return false;
-	};
+	}
 
 	if (existDeniedCommands(command) &&
 		!json.config.adminUsers.includes(chatId)) {
