@@ -3,7 +3,6 @@ const TelegramBot = require('node-telegram-bot-api'),
     exec = require('child_process').exec,
     execSpawn = require('child_process').spawn;
 
-
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
 
@@ -14,10 +13,11 @@ const getCustomCommand = () => {
         }
     }
     return null;
-};
+}
 
-
-const execute = (command, callback) => exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
+const execute = (command, callback) => {
+    exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
+}
 
 const executeSpawn = (command) => {
     let args = [];
@@ -27,7 +27,7 @@ const executeSpawn = (command) => {
 
     execSpawn(command[0], args, { detached: true, shell: true })
         .on('error', (err) => console.log(err));
-};
+}
 
 arisco.onText(/\/raspberry (.+)/, (msg, match) => {
     let chatId = msg.chat.id,
@@ -42,7 +42,7 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
 		return null;
 	}
 
-    var customCommand = getCustomCommand();/*?*/
+    var customCommand = getCustomCommand(command);
 
     if (customCommand !== null) {
         if (!json.config.adminUsers.includes(chatId)) {
@@ -50,15 +50,12 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
             return;
         }
 
-        console.log('Executing custom command: ', customCommand);
-
         if (customCommand.executeWithSpawn) {
-            console.log('executing: ', customCommand[command]);
             return executeSpawn(customCommand[command]);
         }
 
-        return execute(customCommand[command], (error, stdout, stderr) => arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
-
+        return execute(customCommand[command], (error, stdout, stderr) => 
+            arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
     }
 
     const existDeniedCommands = (command) => {
@@ -67,7 +64,7 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
                 return true;
         }
         return false;
-    };
+    }
 
     if (existDeniedCommands(command) &&
         !json.config.adminUsers.includes(chatId)) {
@@ -75,19 +72,15 @@ arisco.onText(/\/raspberry (.+)/, (msg, match) => {
         return;
     }
 
-    execute(command, (error, stdout, stderr) => arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
+    execute(command, (error, stdout, stderr) => 
+        arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
 
-		execute(command, function (error, stdout, stderr){
-			arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' });
-		});
-
-	}
 });
 
 arisco.onText(/\/selfie/, (msg, match) => {
     const chatId = msg.chat.id;
     var index = Math.round(Math.random() * (json.config.selfies.length - 0) + 0);
-    console.log('match', match);
+
     if (index < json.config.selfies.length)
         arisco.sendPhoto(chatId, json.config.selfies[index]);
 });
