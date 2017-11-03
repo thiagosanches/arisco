@@ -13,11 +13,11 @@ const getCustomCommand = () => {
         }
     }
     return null;
-}
+};
 
 const execute = (command, callback) => {
     exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
-}
+};
 
 const executeSpawn = (command) => {
     let args = [];
@@ -27,7 +27,7 @@ const executeSpawn = (command) => {
 
     execSpawn(command[0], args, { detached: true, shell: true })
         .on('error', (err) => console.log(err));
-}
+};
 
 arisco.onText(/\/raspberry (.+)/, (msg, match) => {
     let chatId = msg.chat.id,
