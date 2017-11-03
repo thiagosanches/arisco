@@ -19,10 +19,6 @@ const getCustomCommand = () => {
 
 const execute = (command, callback) => exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
 
-function execute(command, callback) {
-    exec(command, function(error, stdout, stderr){ callback(error, stdout, stderr); });
-}
-
 const executeSpawn = (command) => {
     let args = [];
     if (command.length > 1) {
