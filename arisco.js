@@ -88,3 +88,9 @@ arisco.onText(/\/selfie/, (msg, match) => {
 arisco.on('message', (msg) => {
     console.log('Message received: ', msg);
 });
+
+arisco.onText(/\/w (.+)/gm, (msg, match) => {
+    const chatId = msg.chat.id
+    const number = match[INDEX_COMMAND].trim();
+    arisco.sendMessage(chatId, `https://api.whatsapp.com/send?phone=55${number}`)
+})
