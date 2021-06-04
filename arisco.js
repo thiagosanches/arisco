@@ -29,7 +29,7 @@ const executeSpawn = (command) => {
         .on('error', (err) => console.log(err));
 };
 
-arisco.onText(/\/raspberry (.+)/, (msg, match) => {
+arisco.onText(/\/r (.+)/, (msg, match) => {
     let chatId = msg.chat.id,
         command = match[INDEX_COMMAND];
 
