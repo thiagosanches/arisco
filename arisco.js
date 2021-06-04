@@ -94,15 +94,3 @@ arisco.onText(/\/w (.+)/gm, (msg, match) => {
     const number = match[INDEX_COMMAND].trim();
     arisco.sendMessage(chatId, `https://api.whatsapp.com/send?phone=55${number}`)
 })
-
-arisco.onText(/\/t (.+)/gm, (msg, match) => {
-    const chatId = msg.chat.id
-    let text = msg.text.replace(/-/g, '')
-
-    let matches = text.match(/([0-9])+/g)
-    if(matches){
-        matches.forEach(m => {
-            arisco.sendMessage(chatId, m)
-        })
-    }
-})
