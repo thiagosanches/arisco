@@ -95,20 +95,3 @@ arisco.onText(/\/w (.+)/gm, (msg, match) => {
     arisco.sendMessage(chatId, `https://api.whatsapp.com/send?phone=55${number}`)
 })
 
-arisco.onText(/\/a (.+)/gm, (msg) => {
-    const chatId = msg.chat.id
-    //TODO: REFACTOR MEEEE!!!
-    let text = msg.text.replace(/-/g, '').replace(/\\/g, '')
-        .replace(/\./g, '').replace(/\,/g, '')
-        .replace(/\*/g, '').replace(/\#/g, '')
-        .replace(/\+/g, '').replace(/\_/g, '')
-    
-    const matches = text.match(/([0-9])+/g)
-
-    if (matches) {
-        arisco.sendMessage(chatId, '📃 Here it go your extracted data:')
-        matches.forEach(m => {
-            arisco.sendMessage(chatId, m.trim())
-        })
-    }
-})
