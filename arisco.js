@@ -89,6 +89,18 @@ arisco.on('message', (msg) => {
     console.log('Message received: ', msg);
 });
 
+arisco.onText(/\/t (.+)/gm, (msg, match) => {
+    const chatId = msg.chat.id
+    let text = msg.text.replace(/-/g, '')
+
+    let matches = text.match(/([0-9])+/g)
+    if(matches){
+        matches.forEach(m => {
+            arisco.sendMessage(chatId, m)
+        })
+    }
+})
+
 arisco.onText(/\/w (.+)/gm, (msg, match) => {
     const chatId = msg.chat.id
     const number = match[INDEX_COMMAND].trim();
