@@ -6,6 +6,8 @@ const TelegramBot = require('node-telegram-bot-api'),
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
 
+const http = require('http');
+
 const getCustomCommand = (command) => {
     for (let i = 0; i < json.config.customCommands.length; i++) {
         if (json.config.customCommands[i][command] !== undefined) {
