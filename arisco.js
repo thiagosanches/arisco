@@ -120,3 +120,4 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
         http.get(`${json.config.arduino}/${command}`)
     }
 })
+ 
