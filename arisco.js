@@ -107,3 +107,16 @@ arisco.onText(/\/w (.+)/gm, (msg, match) => {
     const number = match[INDEX_COMMAND].trim();
     arisco.sendMessage(chatId, `https://api.whatsapp.com/send?phone=55${number}`)
 })
+
+arisco.onText(/\/iot (.+)/gm, (msg, match) => {
+    const chatId = msg.chat.id
+    const tokens = match[INDEX_COMMAND].split(':')
+
+    if (tokens) {
+        const command = tokens[0]
+        if (command === 'm') {
+            //TODO
+        }
+        http.get(`${json.config.arduino}/${command}`)
+    }
+})
