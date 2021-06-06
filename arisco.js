@@ -92,6 +92,7 @@ arisco.on('message', (msg) => {
 arisco.onText(/\/t (.+)/gm, (msg, match) => {
     const chatId = msg.chat.id
     let text = msg.text.replace(/-/g, '').replace(/\+/g, '').replace(/\*/g, '').replace(/\./g, '').replace(/\//g, '')
+    	.replace(/\(/g, '').replace(/\)/g, '').replace(/ /g, '')
 
     let matches = text.match(/([0-9])+/g)
     if(matches){
