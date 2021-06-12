@@ -116,7 +116,9 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
     if (tokens) {
         const command = tokens[0]
         if (command === 'm') {
-           //TODO
+           axios.post(`${json.config.arduino}/${command}`, {
+                message: tokens[1]
+            })
         }
         http.get(`${json.config.arduino}/${command}`)
     }
