@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api'),
     json = require('./config.json'),
     exec = require('child_process').exec,
     execSpawn = require('child_process').spawn,
-    axios = require('axios');
+    axios = require('axios'); 
 
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
@@ -116,11 +116,7 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
     if (tokens) {
         const command = tokens[0]
         if (command === 'm') {
-            fetch(`${json.config.arduino}/${command}`, {
-                method: "post",
-                body: `{"message": "${tokens[1]}"}`,
-                headers: { "Content-Type": "application/json" }
-            })
+           //TODO
         }
         http.get(`${json.config.arduino}/${command}`)
     }
