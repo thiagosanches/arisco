@@ -1,7 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api'),
     json = require('./config.json'),
     exec = require('child_process').exec,
-    execSpawn = require('child_process').spawn;
+    execSpawn = require('child_process').spawn,
+    fetch = require("node-fetch");
 
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
