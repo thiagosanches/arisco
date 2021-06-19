@@ -111,7 +111,7 @@ arisco.onText(/\/w (.+)/gm, (msg, match) => {
 
 arisco.onText(/\/iot (.+)/gm, (msg, match) => {
     const chatId = msg.chat.id
-    const tokens = match[INDEX_COMMAND].split(':')
+    const tokens = match[INDEX_COMMAND].split('=')
 
     if (tokens) {
         const command = tokens[0]
