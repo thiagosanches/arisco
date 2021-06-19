@@ -116,20 +116,22 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
     if (tokens) {
         const command = tokens[0]
         if (command === 'm') {
+            console.log("Sending a message...")
             axios.post(`${json.config.arduino}/${command}`, {
                 message: tokens[1].trim(),
                 sender: msg.from.first_name.trim()
             })
         }
         else if (command === 'c') {
+            console.log("Changing the background color...")
             axios.post(`${json.config.arduino}/${command}`, {
                 RGBColor: tokens[1].trim(),
             })
         }
         else {
+            console.log(`Sending regular '${command}' command...`)
             http.get(`${json.config.arduino}/${command}`)
         }
     }
 })
 
- 
