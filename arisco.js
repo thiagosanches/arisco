@@ -2,12 +2,12 @@ const TelegramBot = require('node-telegram-bot-api'),
     json = require('./config.json'),
     exec = require('child_process').exec,
     execSpawn = require('child_process').spawn,
-    axios = require('axios'); 
+    axios = require('axios');
 
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
 
-const http = require('http'); 
+const http = require('http');
 
 const getCustomCommand = (command) => {
     for (let i = 0; i < json.config.customCommands.length; i++) {
@@ -36,14 +36,14 @@ arisco.onText(/\/r (.+)/, (msg, match) => {
     let chatId = msg.chat.id,
         command = match[INDEX_COMMAND];
 
-	var getCustomCommand = () => {
-		for(var i = 0; i < json.config.customCommands.length; i++) {
-			if(json.config.customCommands[i][command] !== undefined) {
-				return json.config.customCommands[i];
-			}
-		}
-		return null;
-	}
+    var getCustomCommand = () => {
+        for (var i = 0; i < json.config.customCommands.length; i++) {
+            if (json.config.customCommands[i][command] !== undefined) {
+                return json.config.customCommands[i];
+            }
+        }
+        return null;
+    }
 
     var customCommand = getCustomCommand(command);
 
@@ -57,7 +57,7 @@ arisco.onText(/\/r (.+)/, (msg, match) => {
             return executeSpawn(customCommand[command]);
         }
 
-        return execute(customCommand[command], (error, stdout, stderr) => 
+        return execute(customCommand[command], (error, stdout, stderr) =>
             arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
     }
 
@@ -75,7 +75,7 @@ arisco.onText(/\/r (.+)/, (msg, match) => {
         return;
     }
 
-    execute(command, (error, stdout, stderr) => 
+    execute(command, (error, stdout, stderr) =>
         arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
 
 });
@@ -96,7 +96,7 @@ arisco.onText(/\/t (.+)/gm, (msg, match) => {
     const chatId = msg.chat.id
     let text = msg.text.replace(/[^0-9a-zA-Z]+/g, '')
     let matches = text.match(/([0-9])+/g)
-    if(matches){
+    if (matches) {
         matches.forEach(m => {
             arisco.sendMessage(chatId, m)
         })
@@ -116,11 +116,19 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
     if (tokens) {
         const command = tokens[0]
         if (command === 'm') {
-           axios.post(`${json.config.arduino}/${command}`, {
-                message: tokens[1]
+            axios.post(`${json.config.arduino}/${command}`, {
+                message: tokens[1].trim(),
+                sender: msg.from.first_name.trim()
             })
         }
-        http.get(`${json.config.arduino}/${command}`)
+        else if (command === 'c') {
+            axios.post(`${json.config.arduino}/${command}`, {
+                RGBColor: tokens[1].trim(),
+            })
+        }
+        else {
+            http.get(`${json.config.arduino}/${command}`)
+        }
     }
 })
- 
+
