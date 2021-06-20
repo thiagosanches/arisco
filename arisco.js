@@ -119,7 +119,7 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
         if (command === 'm') {
             console.log("Sending a message...")
 
-            let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9?,. ]/gi, '');
+            let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9?,. ]/gi, '')
             const TOTAL_LIMIT_CHARS = 25
             const BATCHES_NUMBER = Math.ceil(myMessage.length / TOTAL_LIMIT_CHARS)
 
@@ -147,4 +147,3 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
         }
     }
 })
-
