@@ -147,3 +147,4 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
         }
     }
 })
+
