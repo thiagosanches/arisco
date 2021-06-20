@@ -145,5 +145,5 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
             console.log(`Sending regular '${command}' command...`)
             http.get(`${json.config.arduino}/${command}`)
         }
-    } 
+    }
 })
