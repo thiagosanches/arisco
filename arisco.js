@@ -8,6 +8,7 @@ const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
 
 const http = require('http');
+const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 
 const getCustomCommand = (command) => {
     for (let i = 0; i < json.config.customCommands.length; i++) {
@@ -109,7 +110,7 @@ arisco.onText(/\/w (.+)/gm, (msg, match) => {
     arisco.sendMessage(chatId, `https://api.whatsapp.com/send?phone=55${number}`)
 })
 
-arisco.onText(/\/iot (.+)/gm, (msg, match) => {
+arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
     const chatId = msg.chat.id
     const tokens = match[INDEX_COMMAND].split('=')
 
@@ -117,14 +118,26 @@ arisco.onText(/\/iot (.+)/gm, (msg, match) => {
         const command = tokens[0]
         if (command === 'm') {
             console.log("Sending a message...")
-            axios.post(`${json.config.arduino}/${command}`, {
-                message: tokens[1].trim(),
-                sender: msg.from.first_name.trim()
-            })
+
+            let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9?,. ]/gi, '');
+            const TOTAL_LIMIT_CHARS = 25
+            const BATCHES_NUMBER = Math.ceil(myMessage.length / TOTAL_LIMIT_CHARS)
+
+            for (let i = 0; i < BATCHES_NUMBER; i++) {
+                const limitedMessage = myMessage.substring(i * TOTAL_LIMIT_CHARS, (i + 1) * TOTAL_LIMIT_CHARS)
+                console.log(`Batch ${i}: '${limitedMessage}'`)
+                await axios.post(`${json.config.arduino}/${command}`, {
+                    message: limitedMessage.trim(),
+                    sender: msg.from.first_name.trim()
+                })
+                //TODO: it's not elegant, but needed to do that til implement a mutex on arduino logic,
+                //to avoid serial communication issues.
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            }
         }
         else if (command === 'c') {
             console.log("Changing the background color...")
-            axios.post(`${json.config.arduino}/${command}`, {
+            await axios.post(`${json.config.arduino}/${command}`, {
                 RGBColor: tokens[1].trim(),
             })
         }
