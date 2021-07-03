@@ -119,8 +119,8 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
         if (command === 'm') {
             console.log("Sending a message...")
 
-            let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9?,. ]/gi, '')
-            const totalMessage = `${msg.from.first_name.substring(0, 5).trim()}:${myMessage}`
+            let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9!?,. ]/gi, '')
+            const totalMessage = `${msg.from.first_name.toLowerCase().substring(0, 5).trim()}:${myMessage}`
             const TOTAL_LIMIT_CHARS = 25
             const BATCHES_NUMBER = Math.ceil(totalMessage.length / TOTAL_LIMIT_CHARS)
 
@@ -128,8 +128,7 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
                 const limitedMessage = totalMessage.substring(i * TOTAL_LIMIT_CHARS, (i + 1) * TOTAL_LIMIT_CHARS)
                 console.log(`Batch ${i}: '${limitedMessage}'`)
                 await axios.post(`${json.config.arduino}/${command}`, {
-                    message: limitedMessage.trim(),
-                    sender: msg.from.first_name.trim()
+                    message: limitedMessage.trim()
                 })
                 //TODO: it's not elegant, but needed to do that til implement a mutex on arduino logic,
                 //to avoid serial communication issues.
