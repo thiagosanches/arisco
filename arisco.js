@@ -120,11 +120,12 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
             console.log("Sending a message...")
 
             let myMessage = tokens[1].trim().replace(/[^a-zA-Z0-9?,. ]/gi, '')
+            const totalMessage = `${msg.from.first_name.substring(0, 5).trim()}:${myMessage}`
             const TOTAL_LIMIT_CHARS = 25
-            const BATCHES_NUMBER = Math.ceil(myMessage.length / TOTAL_LIMIT_CHARS)
+            const BATCHES_NUMBER = Math.ceil(totalMessage.length / TOTAL_LIMIT_CHARS)
 
             for (let i = 0; i < BATCHES_NUMBER; i++) {
-                const limitedMessage = myMessage.substring(i * TOTAL_LIMIT_CHARS, (i + 1) * TOTAL_LIMIT_CHARS)
+                const limitedMessage = totalMessage.substring(i * TOTAL_LIMIT_CHARS, (i + 1) * TOTAL_LIMIT_CHARS)
                 console.log(`Batch ${i}: '${limitedMessage}'`)
                 await axios.post(`${json.config.arduino}/${command}`, {
                     message: limitedMessage.trim(),
