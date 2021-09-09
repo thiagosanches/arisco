@@ -3,6 +3,7 @@ const TelegramBot = require('node-telegram-bot-api'),
     exec = require('child_process').exec,
     execSpawn = require('child_process').spawn,
     axios = require('axios');
+fs = require('fs')
 
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
@@ -140,6 +141,15 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
             await axios.post(`${json.config.arduino}/${command}`, {
                 RGBColor: tokens[1].trim(),
             })
+        }
+        else if (command === 'p') {
+            console.log("Taking a picture...")
+            const picture = await axios.get(`${json.config.esp32cam}/cam-hi.jpg`, {
+                responseType: 'stream'
+            })
+            await picture.data.pipe(fs.createWriteStream("./picture.jpg"));
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            arisco.sendPhoto(chatId, "./picture.jpg");
         }
         else {
             console.log(`Sending regular '${command}' command...`)
