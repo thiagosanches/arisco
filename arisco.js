@@ -92,10 +92,9 @@ arisco.onText(/\/selfie/, (msg, match) => {
 
 arisco.on('message', (msg) => {
     console.log('Message received: ', msg);
-    arisco.sendMessage(json.config.iotGroup, "Thiago! Someone sent a message to me!")
-    arisco.sendMessage(json.config.iotGroup, `*Telegram ID*: ${msg.from.id}`, { parse_mode: "markdown" })
-    arisco.sendMessage(json.config.iotGroup, `*Name*: ${msg.from.first_name}`, { parse_mode: "markdown" })
-    arisco.sendMessage(json.config.iotGroup, `*Message*: \`\`\`${msg.text}\`\`\``, { parse_mode: "markdown" })
+    if(!json.config.adminUsers.includes(msg.from.id)) {
+        arisco.sendMessage(json.config.iotGroup, `\[${msg.from.id}\] ${msg.from.first_name} sent:\`\`\`${msg.text}\`\`\``, { parse_mode: "markdown" })
+    }
 });
 
 arisco.onText(/\/t (.+)/gm, (msg, match) => {
