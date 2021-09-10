@@ -2,6 +2,7 @@
 	"authorizationToken" : "YOUR_TOKEN_GOES_HERE",
 	"config" : {
 		"adminUsers" : [1,2,3],
+		"iotGroup": -999999999,
 		"selfies" : ["assets/arisco1.jpeg", "assets/arisco2.jpeg"],
 		"customCommands" : [
 			{ 
