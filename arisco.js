@@ -92,6 +92,10 @@ arisco.onText(/\/selfie/, (msg, match) => {
 
 arisco.on('message', (msg) => {
     console.log('Message received: ', msg);
+    arisco.sendMessage(json.config.iotGroup, "Thiago! Someone sent a message to me!")
+    arisco.sendMessage(json.config.iotGroup, `*Telegram ID*: ${msg.from.id}`, { parse_mode: "markdown" })
+    arisco.sendMessage(json.config.iotGroup, `*Name*: ${msg.from.first_name}`, { parse_mode: "markdown" })
+    arisco.sendMessage(json.config.iotGroup, `*Message*: \`\`\`${msg.text}\`\`\``, { parse_mode: "markdown" })
 });
 
 arisco.onText(/\/t (.+)/gm, (msg, match) => {
@@ -148,7 +152,7 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
                 responseType: 'stream'
             })
             await picture.data.pipe(fs.createWriteStream("./picture.jpg"));
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 7000));
             arisco.sendPhoto(chatId, "./picture.jpg");
         }
         else {
