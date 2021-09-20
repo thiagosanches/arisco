@@ -38,6 +38,11 @@ arisco.onText(/\/r (.+)/, (msg, match) => {
     let chatId = msg.chat.id,
         command = match[INDEX_COMMAND];
 
+    if (!json.config.adminUsers.includes(chatId)) {
+        arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+        return;
+    }
+
     var getCustomCommand = () => {
         for (var i = 0; i < json.config.customCommands.length; i++) {
             if (json.config.customCommands[i][command] !== undefined) {
@@ -50,11 +55,6 @@ arisco.onText(/\/r (.+)/, (msg, match) => {
     var customCommand = getCustomCommand(command);
 
     if (customCommand !== null) {
-        if (!json.config.adminUsers.includes(chatId)) {
-            arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
-            return;
-        }
-
         if (customCommand.executeWithSpawn) {
             return executeSpawn(customCommand[command]);
         }
@@ -92,7 +92,7 @@ arisco.onText(/\/selfie/, (msg, match) => {
 
 arisco.on('message', (msg) => {
     console.log('Message received: ', msg);
-    if(!json.config.adminUsers.includes(msg.from.id)) {
+    if (!json.config.adminUsers.includes(msg.from.id)) {
         arisco.sendMessage(json.config.iotGroup, `\[${msg.from.id}\] ${msg.from.first_name} sent:\`\`\`${msg.text}\`\`\``, { parse_mode: "markdown" })
     }
 });
