@@ -11,15 +11,6 @@ const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
 const http = require('http');
 const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 
-const getCustomCommand = (command) => {
-    for (let i = 0; i < json.config.customCommands.length; i++) {
-        if (json.config.customCommands[i][command] !== undefined) {
-            return json.config.customCommands[i];
-        }
-    }
-    return null;
-};
-
 const execute = (command, callback) => {
     exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
 };
