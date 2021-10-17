@@ -4,6 +4,7 @@ const TelegramBot = require('node-telegram-bot-api'),
     execSpawn = require('child_process').spawn,
     axios = require('axios');
 fs = require('fs')
+const ngrok = require('ngrok');
 
 const arisco = new TelegramBot(json.authorizationToken, { polling: true }),
     INDEX_COMMAND = 1;
@@ -150,4 +151,15 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
             http.get(`${json.config.arduino}/${command}`)
         }
     }
+})
+
+arisco.onText(/\/tunnelOn/gm, async(msg, match)=>{
+    const url = await ngrok.connect();
+    arisco.sendMessage(json.config.iotGroup, `Here it goes your url: ${url}`);
+})
+
+arisco.onText(/\/tunnelOff/gm, async(msg, match)=>{
+    console.log(await ngrok.disconnect())
+    console.log(await ngrok.kill())
+    arisco.sendMessage(json.config.iotGroup, `Tunnel is gone!`);
 })
