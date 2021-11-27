@@ -139,7 +139,7 @@ arisco.onText(/\/iot (.+)/gm, async (msg, match) => {
         }
         else if (command === 'p') {
             console.log("Taking a picture...")
-            const picture = await axios.get(`${json.config.esp32cam}/jpg`, {
+            const picture = await axios.get(`${json.config.esp32cam}/jpg`, { //picture
                 responseType: 'stream'
             })
             await picture.data.pipe(fs.createWriteStream("./picture.jpg"));
