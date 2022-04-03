@@ -165,6 +165,12 @@ arisco.onText(/\/tunnelOff/gm, async(msg, match)=>{
 })
 
 arisco.onText(/\/wz (.+)/gm, (msg, match) => {
+    
+    if (!json.config.adminUsers.includes(chatId)) {
+        arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+        return;
+    }
+    
     console.log("Proxying message to Whatsapp Web...")
     const chatId = msg.chat.id;
     const command = match[INDEX_COMMAND].trim().split(":");
