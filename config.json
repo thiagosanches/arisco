@@ -15,6 +15,7 @@
 		],
 		"deniedCommands" : ["rm", "rmdir", "shutdown", "halt", "sudo", "mv", "touch", "chmod", "wget", "curl", "echo"],
 		"arduino": "http://192.168.15.7:5000",
+		"whatsappProxy": "http://192.168.15.3:5000",
 		"esp32cam": "http://192.168.15.11"
 	}
 }
