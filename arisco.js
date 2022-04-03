@@ -166,8 +166,8 @@ arisco.onText(/\/tunnelOff/gm, async(msg, match)=>{
 
 arisco.onText(/\/wz (.+)/gm, (msg, match) => {
     
-    if (!json.config.adminUsers.includes(chatId)) {
-        arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+    if (!json.config.adminUsers.includes(msg.chat.id)) {
+        arisco.sendMessage(msg.chat.id, 'You are not allowed to perform this command!');
         return;
     }
     
