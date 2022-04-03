@@ -163,3 +163,18 @@ arisco.onText(/\/tunnelOff/gm, async(msg, match)=>{
     console.log(await ngrok.kill())
     arisco.sendMessage(json.config.iotGroup, `Tunnel is gone!`);
 })
+
+arisco.onText(/\/wz (.+)/gm, (msg, match) => {
+    console.log("Proxying message to Whatsapp Web...")
+    const chatId = msg.chat.id;
+    const command = match[INDEX_COMMAND].trim().split(":");
+    console.log(command);
+
+
+    axios.post(`${json.config.whatsappProxy}/sendMessage`, {
+        name: command[0].trim(),
+        body: command[1].trim()
+    })
+
+    arisco.sendMessage(chatId, 'done');
+})
