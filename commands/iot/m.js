@@ -1,5 +1,6 @@
 const axios = require('axios');
 module.exports.execute = async function (json, msg, match, bot) {
+    console.log('Executing m.js');
     const myMessage = match[1].trim().replace(/[^a-zA-Z0-9!?,. ]/gi, '')
     const totalMessage = `${msg.from.first_name.toLowerCase().substring(0, 5).trim()}:${myMessage}`
     const TOTAL_LIMIT_CHARS = 25
