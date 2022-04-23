@@ -19,7 +19,7 @@ There is a `config.json` file that should be configured like the following examp
 	"authorizationToken" : "YOUR_TOKEN_GOES_HERE",
 	"config" : {
 		"adminUsers" : [1,2,3],
-		"selfies" : ["assets/arisco1.jpeg", "assets/arisco2.jpeg"],
+		"selfies" : ["assets/image01.jpeg", "assets/image02.jpeg"],
 		"customCommands" : [
 			{ 
 				"command1" : ["my command 1"],
