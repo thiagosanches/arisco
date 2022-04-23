@@ -20,7 +20,7 @@ module.exports.execute = async function (json, msg, match, bot) {
         command = match[INDEX_COMMAND];
 
     if (!json.config.adminUsers.includes(chatId)) {
-        arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+        bot.sendMessage(chatId, 'You are not allowed to perform this command!');
         return;
     }
 
@@ -41,7 +41,7 @@ module.exports.execute = async function (json, msg, match, bot) {
         }
 
         return execute(customCommand[command], (error, stdout, stderr) =>
-            arisco.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
+            bot.sendMessage(chatId, '<code>' + stdout + stderr + '</code>', { parse_mode: 'HTML' }));
     }
 
     const existDeniedCommands = (command) => {
@@ -54,7 +54,7 @@ module.exports.execute = async function (json, msg, match, bot) {
 
     if (existDeniedCommands(command) &&
         !json.config.adminUsers.includes(chatId)) {
-        arisco.sendMessage(chatId, 'You are not allowed to perform this command!');
+        bot.sendMessage(chatId, 'You are not allowed to perform this command!');
         return;
     }
 
