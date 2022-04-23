@@ -8,22 +8,22 @@ const p = require('./commands/iot/p');
 const c = require('./commands/iot/c');
 const m = require('./commands/iot/m');
 const r = require('./commands/raspberry/r');
-const arisco = new TelegramBot(json.authorizationToken, { polling: true });
+const bot = new TelegramBot(json.authorizationToken, { polling: true });
 
 /*DEFAULT*/
-arisco.on('message', (msg) => { message.execute(msg, json, arisco) });
+bot.on('message', (msg) => { message.execute(msg, json, bot) });
 
 /*RASPBERRY*/
-arisco.onText(/\/r (.+)/, (msg, match) => { r.execute(json, msg, match, arisco) });
+bot.onText(/\/r (.+)/, (msg, match) => { r.execute(json, msg, match, bot) });
 
 /*FUN*/
-arisco.onText(/\/selfie/, (msg) => { selfie.execute(json, msg.chat.id, arisco) });
+bot.onText(/\/selfie/, (msg) => { selfie.execute(json, msg.chat.id, bot) });
 
 /*UTILS*/
-arisco.onText(/\/t (.+)/gm, (msg) => { getOnlyNumbersFromText.execute(msg, msg.chat.id, arisco) });
-arisco.onText(/\/w (.+)/gm, (msg, match) => { getWhatsAppDirectLink.execute(match, msg.chat.id, arisco) });
+bot.onText(/\/t (.+)/gm, (msg) => { getOnlyNumbersFromText.execute(msg, msg.chat.id, bot) });
+bot.onText(/\/w (.+)/gm, (msg, match) => { getWhatsAppDirectLink.execute(match, msg.chat.id, bot) });
 
 /*IOT*/
-arisco.onText(/\/iot p/, async (msg) => { p.execute(json, msg.chat.id, arisco) });
-arisco.onText(/\/iot c=(.+)/, async (msg, match) => { c.execute(json, msg, match, arisco) });
-arisco.onText(/\/iot m=(.+)/, async (msg, match) => { m.execute(json, msg, match, arisco) });
+bot.onText(/\/iot p/, async (msg) => { p.execute(json, msg.chat.id, bot) });
+bot.onText(/\/iot c=(.+)/, async (msg, match) => { c.execute(json, msg, match, bot) });
+bot.onText(/\/iot m=(.+)/, async (msg, match) => { m.execute(json, msg, match, bot) });
