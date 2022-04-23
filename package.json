@@ -4,7 +4,8 @@
   "description": "An unexpected Telegram/Raspberry journey",
   "main": "arisco.js",
   "scripts": {
-    "test": ""
+    "test": "",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bluebird": "^3.5.1",
-    "eslint": "^4.10.0",
+    "eslint": "^4.19.1",
     "node-telegram-bot-api": "^0.29.0"
   }
 }

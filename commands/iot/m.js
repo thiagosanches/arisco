@@ -16,4 +16,4 @@ module.exports.execute = async function (json, msg, match, bot) {
         //to avoid serial communication issues.
         await new Promise(resolve => setTimeout(resolve, 3000));
     }
-}
+};

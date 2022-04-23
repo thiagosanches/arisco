@@ -9,4 +9,4 @@ module.exports.execute = async function (json, chatId, bot) {
     await picture.data.pipe(fs.createWriteStream("./picture.jpg"));
     await new Promise(resolve => setTimeout(resolve, 7000));
     bot.sendPhoto(chatId, "./picture.jpg");
-}
+};

@@ -7,4 +7,4 @@ module.exports.execute = function (msg, chatId, bot) {
             bot.sendMessage(chatId, m);
         });
     }
-}
+};
