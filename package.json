@@ -20,7 +20,6 @@
     "axios": "^0.21.1",
     "bluebird": "^3.5.1",
     "eslint": "^4.10.0",
-    "node-fetch": "^2.6.7",
     "node-telegram-bot-api": "^0.29.0"
   }
 }
