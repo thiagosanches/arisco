@@ -1,10 +1,8 @@
 const exec = require('child_process').exec;
 const execSpawn = require('child_process').spawn;
 const INDEX_COMMAND = 1;
-const execute = (command, callback) => {
-    exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); });
-};
-
+const DENIED_MESSAGE = 'You are not allowed to perform this command!';
+const execute = (command, callback) => { exec(command, (error, stdout, stderr) => { callback(error, stdout, stderr); }); };
 const executeSpawn = (command) => {
     let args = [];
     if (command.length > 1) {
@@ -16,15 +14,15 @@ const executeSpawn = (command) => {
 };
 
 module.exports.execute = async function (json, msg, match, bot) {
-    let chatId = msg.chat.id,
+    const chatId = msg.chat.id,
         command = match[INDEX_COMMAND];
 
     if (!json.config.adminUsers.includes(chatId)) {
-        bot.sendMessage(chatId, 'You are not allowed to perform this command!');
+        bot.sendMessage(chatId, DENIED_MESSAGE);
         return;
     }
 
-    var getCustomCommand = () => {
+    const getCustomCommand = () => {
         for (var i = 0; i < json.config.customCommands.length; i++) {
             if (json.config.customCommands[i][command] !== undefined) {
                 return json.config.customCommands[i];
@@ -33,7 +31,7 @@ module.exports.execute = async function (json, msg, match, bot) {
         return null;
     }
 
-    var customCommand = getCustomCommand(command);
+    const customCommand = getCustomCommand(command);
 
     if (customCommand !== null) {
         if (customCommand.executeWithSpawn) {
@@ -54,7 +52,7 @@ module.exports.execute = async function (json, msg, match, bot) {
 
     if (existDeniedCommands(command) &&
         !json.config.adminUsers.includes(chatId)) {
-        bot.sendMessage(chatId, 'You are not allowed to perform this command!');
+        bot.sendMessage(chatId, DENIED_MESSAGE);
         return;
     }
 
