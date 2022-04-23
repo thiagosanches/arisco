@@ -3,13 +3,12 @@ An unexpected Telegram/Raspberry journey.
 
 # Installation
 
-`$ git clone https://github.com/thiagosanches/arisco.git`
-
-`$ cd arisco`
-
-`$ npm install node-telegram-bot-api`
-
-`$ node arisco.js`
+```
+git clone https://github.com/thiagosanches/arisco.git
+cd arisco
+npm i
+node main.js
+```
 
 # How to configure ?
 
