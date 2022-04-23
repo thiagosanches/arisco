@@ -4,6 +4,7 @@ const selfie = require('./commands/fun/selfie');
 const message = require('./commands/default/message');
 const getWhatsAppDirectLink = require('./commands/utils/getWhatsAppDirectLink');
 const getOnlyNumbersFromText = require('./commands/utils/getOnlyNumbersFromText');
+const answerOnBotBehalf = require('./commands/utils/answerOnBotBehalf');
 const p = require('./commands/iot/p');
 const c = require('./commands/iot/c');
 const m = require('./commands/iot/m');
@@ -22,6 +23,7 @@ bot.onText(/\/selfie/, (msg) => { selfie.execute(json, msg.chat.id, bot) });
 /*UTILS*/
 bot.onText(/\/t (.+)/gm, (msg) => { getOnlyNumbersFromText.execute(msg, msg.chat.id, bot) });
 bot.onText(/\/w (.+)/gm, (msg, match) => { getWhatsAppDirectLink.execute(match, msg.chat.id, bot) });
+bot.onText(/\/a m=(.+)/gm, (msg, match) => { answerOnBotBehalf.execute(json, msg, match, bot) });
 
 /*IOT*/
 bot.onText(/\/iot p/, async (msg) => { p.execute(json, msg.chat.id, bot) });
