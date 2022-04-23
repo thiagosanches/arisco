@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /opt/arisco/
-node arisco.js 
+node main.js
