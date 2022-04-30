@@ -8,6 +8,7 @@ const answerOnBotBehalf = require('./commands/utils/answerOnBotBehalf');
 const p = require('./commands/iot/p');
 const c = require('./commands/iot/c');
 const m = require('./commands/iot/m');
+const t = require('./commands/iot/t');
 const r = require('./commands/raspberry/r');
 const bot = new TelegramBot(json.authorizationToken, { polling: true });
 
@@ -27,5 +28,6 @@ bot.onText(/\/a m=(.+)/gm, (msg, match) => { answerOnBotBehalf.execute(json, msg
 
 /*IOT*/
 bot.onText(/\/iot p/, async (msg) => { p.execute(json, msg.chat.id, bot) });
+bot.onText(/\/iot t/, async (msg) => { t.execute(json, msg.chat.id, bot) });
 bot.onText(/\/iot c=(.+)/, async (msg, match) => { c.execute(json, msg, match, bot) });
 bot.onText(/\/iot m=(.+)/, async (msg, match) => { m.execute(json, msg, match, bot) });
