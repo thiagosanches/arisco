@@ -6,7 +6,12 @@ module.exports.execute = async function (json, msg, match, bot) {
     console.log(`Url: ${match[1]}`);
     console.log(`chatId: ${chatId}`);
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ 
+        headless: true, 
+        executablePath: 'chromium-browser',
+        args: ['--no-sandbox']
+    });
+    
     const page = await browser.newPage();
     await page.goto(match[1]);
 
