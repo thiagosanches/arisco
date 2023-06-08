@@ -20,7 +20,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bluebird": "^3.5.1",
-    "eslint": "^4.19.1",
+    "eslint": "^8.38.0",
     "node-telegram-bot-api": "^0.29.0",
     "puppeteer": "^15.4.0"
   }
