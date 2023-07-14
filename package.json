@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/thiagosanches/arisco#readme",
   "dependencies": {
-    "axios": "^0.21.1",
-    "bluebird": "^3.5.1",
-    "eslint": "^8.38.0",
-    "node-telegram-bot-api": "^0.29.0",
-    "puppeteer": "^15.4.0"
+    "axios": "^1.4.0",
+    "bluebird": "^3.7.2",
+    "eslint": "^8.45.0",
+    "node-telegram-bot-api": "^0.61.0",
+    "puppeteer": "^20.8.2"
   }
 }
