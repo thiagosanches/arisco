@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/thiagosanches/arisco#readme",
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "bluebird": "^3.7.2",
     "eslint": "^8.45.0",
     "node-telegram-bot-api": "^0.61.0",
